@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuk va Pochta xizmati</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="container" id="authContainer">
+        
+        <div class="form-box" id="loginForm">
+            <h2>Tizimga kirish</h2>
+            <form id="formLogin">
+                <div class="input-group">
+                    <label>Elektron pochta</label>
+                    <input type="email" id="loginEmail" placeholder="Emailingizni kiriting" required>
+                </div>
+                <div class="input-group">
+                    <label>Parol</label>
+                    <input type="password" id="loginPassword" placeholder="Parolingizni kiriting" required>
+                </div>
+                <button type="submit" class="btn">Kirish</button>
+            </form>
+            
+            <div class="divider">yoki</div>
+            <button type="button" class="btn btn-google google-auth-btn">
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="google-icon">
+                Google orqali kirish
+            </button>
+
+            <p class="switch-text">Akkauntingiz yo'qmi? <span id="goToRegister">Ro'yxatdan o'tish</span></p>
+        </div>
+
+        <div class="form-box hidden" id="registerForm">
+            <h2>Ro'yxatdan o'tish</h2>
+            <form id="formRegister">
+                
+                <div class="role-group">
+                    <input type="radio" name="userRole" id="roleClient" value="mijoz" checked>
+                    <label for="roleClient">Mijoz (Yuk egasi)</label>
+                    
+                    <input type="radio" name="userRole" id="roleDriver" value="haydovchi">
+                    <label for="roleDriver">Haydovchi</label>
+                </div>
+
+                <div class="input-group">
+                    <label>Ism / Familiya</label>
+                    <input type="text" id="regName" placeholder="Ismingizni kiriting" required>
+                </div>
+                <div class="input-group">
+                    <label>Elektron pochta</label>
+                    <input type="email" id="regEmail" placeholder="Emailingizni kiriting" required>
+                </div>
+                <div class="input-group">
+                    <label>Parol (kamida 6 ta belgi)</label>
+                    <input type="password" id="regPassword" placeholder="Parol yarating" required>
+                </div>
+                <button type="submit" class="btn">Ro'yxatdan o'tish</button>
+            </form>
+
+            <div class="divider">yoki</div>
+            <button type="button" class="btn btn-google google-auth-btn">
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="google-icon">
+                Google orqali ro'yxatdan o'tish
+            </button>
+
+            <p class="switch-text">Akkauntingiz bormi? <span id="goToLogin">Kirish</span></p>
+        </div>
+    </div>
+
+    <script type="module" src="./js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mijoz Paneli</title>
+    <!-- Asosiy dizaynni ulaymiz -->
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+
+    <div class="navbar">
+        <h1 id="userNameDisplay">Mijoz Paneli</h1>
+        <button id="btnLogout" class="btn-logout">Tizimdan chiqish</button>
+    </div>
+
+    <div class="dashboard-container">
+        
+        <!-- YUK QO'SHISH FORMASI -->
+        <div class="card">
+            <h2>Yangi yuk e'loni</h2>
+            <form id="formOrder">
+                <div class="input-group">
+                    <label>Qayerdan (Viloyat/Tuman)</label>
+                    <input type="text" id="orderFrom" placeholder="Masalan: Toshkent" required>
+                </div>
+                <div class="input-group">
+                    <label>Qayerga (Viloyat/Tuman)</label>
+                    <input type="text" id="orderTo" placeholder="Masalan: Buxoro" required>
+                </div>
+                <div class="input-group">
+                    <label>Yuk ta'rifi (Hajmi, og'irligi)</label>
+                    <textarea id="orderDesc" rows="3" placeholder="Masalan: 2 ta qop kiyim, taxminan 15kg" required></textarea>
+                </div>
+                <div class="input-group">
+                    <label>Taklif qilinayotgan narx (So'm)</label>
+                    <input type="number" id="orderPrice" placeholder="Masalan: 50000" required>
+                </div>
+                <button type="submit" class="btn-primary">E'lonni joylash</button>
+            </form>
+        </div>
+
+        <!-- E'LONLAR RO'YXATI -->
+        <div class="card">
+            <h2>Mening e'lonlarim</h2>
+            <div class="orders-list" id="ordersList">
+                <p style="color: #999; font-size: 14px;">Hozircha e'lonlar yo'q...</p>
+                <!-- E'lonlar JavaScript orqali shu yerga qo'shiladi -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Mijoz mantiqi -->
+    <script type="module" src="../js/client.js"></script>
+</body>
+</html>
