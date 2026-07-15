@@ -68,7 +68,7 @@ function loadMyOrders() {
         ordersList.innerHTML = ''; // Avvalgi ro'yxatni tozalaymiz
 
         if (snapshot.empty) {
-            ordersList.innerHTML = '<p style="color: #999; font-size: 14px;">Hozircha e'lonlar yo'q...</p>';
+            ordersList.innerHTML = `<p style="color: #999; font-size: 14px;">Hozircha e'lonlar yo'q...</p>`;
             return;
         }
 

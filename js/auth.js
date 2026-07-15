@@ -7,44 +7,56 @@ const googleProvider = new GoogleAuthProvider();
 const loginBox = document.getElementById('loginForm');
 const registerBox = document.getElementById('registerForm');
 
-// Oynalarni almashtirish
+// OYNALARNI ALMASHTIRISH
 document.getElementById('goToRegister').addEventListener('click', () => {
-    loginBox.classList.add('hidden'); registerBox.classList.remove('hidden');
+    loginBox.classList.add('hidden'); 
+    registerBox.classList.remove('hidden');
 });
 document.getElementById('goToLogin').addEventListener('click', () => {
-    registerBox.classList.add('hidden'); loginBox.classList.remove('hidden');
+    registerBox.classList.add('hidden'); 
+    loginBox.classList.remove('hidden');
 });
 
 // FOYDALANUVCHI HOLATINI KUZATISH VA YO'NALTIRISH
 onAuthStateChanged(auth, async (user) => {
     if (user) {
         // Tizimga kirgach, ekranni bloklab turamiz
-        document.body.innerHTML = "<h2 style='text-align:center; margin-top: 50px;'>Tizimga kirilmoqda...</h2>";
+        document.body.innerHTML = "<h2 style='text-align:center; margin-top: 50px; font-family: sans-serif;'>Tizimga kirilmoqda. Iltimos kuting...</h2>";
         
-        // Firestore'dan foydalanuvchining rolini qidirish
-        const docRef = doc(db, "users", user.uid);
-        const docSnap = await getDoc(docRef);
+        try {
+            // Firestore'dan foydalanuvchining rolini qidirish
+            const docRef = doc(db, "users", user.uid);
+            const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-            const userData = docSnap.data();
-            // Roliga qarab tegishli papkaga jo'natamiz
-            if (userData.role === 'haydovchi') {
-                window.location.href = './pages/driver.html';
-            } else if (userData.role === 'admin') {
-                window.location.href = './pages/admin.html';
+            if (docSnap.exists()) {
+                const userData = docSnap.data();
+                // Roliga qarab tegishli papkaga jo'natamiz
+                if (userData.role === 'haydovchi') {
+                    window.location.href = './pages/driver.html';
+                } else if (userData.role === 'admin') {
+                    window.location.href = './pages/admin.html';
+                } else {
+                    window.location.href = './pages/client.html';
+                }
             } else {
+                // Agar bazada yo'q bo'lsa (Google orqali birinchi marta kirdi)
+                await setDoc(docRef, {
+                    name: user.displayName || user.email,
+                    email: user.email,
+                    role: 'mijoz',
+                    createdAt: new Date().toISOString()
+                });
                 window.location.href = './pages/client.html';
             }
-        } else {
-            // Agar Google orqali birinchi marta kirgan bo'lsa va bazada yo'q bo'lsa
-            // Uni avtomatik "mijoz" deb ro'yxatga olamiz
-            await setDoc(docRef, {
-                name: user.displayName || user.email,
-                email: user.email,
-                role: 'mijoz',
-                createdAt: new Date().toISOString()
-            });
-            window.location.href = './pages/client.html';
+        } catch (error) {
+            // XATO BO'LSA EKRANGA QIZIL BILAN CHIQARAMIZ
+            document.body.innerHTML = `
+                <div style='text-align:center; margin-top: 50px; font-family: sans-serif;'>
+                    <h2 style='color: red;'>Xatolik yuz berdi!</h2>
+                    <p>${error.message}</p>
+                    <button onclick="window.location.reload()" style="padding: 10px 20px; margin-top: 20px; cursor: pointer;">Sahifani yangilash</button>
+                </div>`;
+            console.error(error);
         }
     }
 });
@@ -55,6 +67,7 @@ document.getElementById('formRegister').addEventListener('submit', async (e) => 
     const name = document.getElementById('regName').value;
     const email = document.getElementById('regEmail').value;
     const password = document.getElementById('regPassword').value;
+    
     // Qaysi rol tanlanganini aniqlaymiz
     const role = document.querySelector('input[name="userRole"]:checked').value;
 

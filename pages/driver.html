@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haydovchi Paneli</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+
+    <div class="navbar">
+        <h1 id="userNameDisplay">Haydovchi Paneli</h1>
+        <button id="btnLogout" class="btn-logout">Tizimdan chiqish</button>
+    </div>
+
+    <div class="dashboard-container" style="grid-template-columns: 1fr; max-width: 800px;">
+        
+        <div class="card">
+            <h2>Yangi buyurtmalar (Mijozlar kutmoqda)</h2>
+            <div class="orders-list" id="ordersList">
+                <p style="color: #999; font-size: 14px;">Yuklanmoqda...</p>
+                </div>
+        </div>
+
+    </div>
+
+    <script type="module" src="../js/driver.js"></script>
+</body>
+</html>
